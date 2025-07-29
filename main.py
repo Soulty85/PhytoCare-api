@@ -4,8 +4,6 @@ from PIL import Image
 from utils import translate_dease, get_advice, format_output, healthy_advice
 
 import io
-import json
-import time
 
 
 app = FastAPI()
@@ -23,7 +21,7 @@ async def prediction(file: UploadFile = File(...)):
     
     plant = model_filter.predict(img)[0]
     
-    if plant is not 'plant':
+    if plant != 'plant':
         return {"status": "error", "translation": "Ceci n'est pas une plante", "result": plant}
     
     prediction_disease = model_classifier.predict(img)
